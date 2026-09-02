@@ -2,3 +2,4 @@ pandas
 jupyter
 matplotlib
 requests
+python-dotenv
