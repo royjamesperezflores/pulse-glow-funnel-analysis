@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project data
+data/*.db
+
+# macOS Finder litter
+.DS_Store
+
+# Secrets — never commit
+.env
