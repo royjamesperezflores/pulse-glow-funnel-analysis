@@ -5,6 +5,8 @@ Diagnosing where visitors drop out of a live Shopify store's conversion funnel.
 **90 days (2026-06-16 → 2026-09-14) · 1,638 sessions · 23 cart additions · 2 orders.**
 Python · ShopifyQL (Admin GraphQL API) · SQLite · SQL · matplotlib
 
+**→ Full writeup: [`docs/WRITEUP.md`](docs/WRITEUP.md)**
+
 ## The finding
 
 **98.6% of sessions never add an item to the cart.** The break is not at checkout —
@@ -46,6 +48,7 @@ pip install -r requirements.txt
 cp .env.example .env        # add SHOPIFY_STORE, SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET
 python src/pull_sessions.py     # API -> SQLite
 python src/analyze_funnel.py    # SQLite -> findings + reports/funnel.png
+python src/daily_trend.py       # daily series, ad flight, cart-add concentration
 ```
 
 | File | Does |
@@ -53,7 +56,8 @@ python src/analyze_funnel.py    # SQLite -> findings + reports/funnel.png
 | `src/shopify_client.py` | Exchanges client credentials for a 24-hour Admin API token |
 | `src/check_env.py` | Confirms credentials load without printing them |
 | `src/pull_sessions.py` | Seven ShopifyQL queries → upsert into `data/funnel.db` |
-| `src/analyze_funnel.py` | SQL over the database → funnel, breakdowns, significance test, chart |
+| `src/analyze_funnel.py` | SQL over the database → funnel, breakdowns, significance test, charts |
+| `src/daily_trend.py` | Daily series → ad-flight comparison, cart-add concentration, trend chart |
 | `sql/schema.sql` | `session_metrics_daily`, keyed on (date, dimension, dimension_value) |
 | `sql/analysis.sql` | The five queries behind the findings |
 
